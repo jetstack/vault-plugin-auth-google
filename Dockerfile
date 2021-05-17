@@ -1,6 +1,6 @@
 FROM golang:1.13.12 AS build
 
-WORKDIR /go/src/github.com/simonswine/vault-plugin-auth-google
+WORKDIR /go/src/github.com/jetstack/vault-plugin-auth-google
 
 ADD go.mod go.sum ./
 
@@ -17,5 +17,5 @@ RUN echo "#!/bin/sh" > setup-vault-plugin-auth-google.sh && \
 
 FROM alpine:3.11
 
-COPY --from=build /go/src/github.com/simonswine/vault-plugin-auth-google/vault-plugin-auth-google /usr/local/bin
-COPY --from=build /go/src/github.com/simonswine/vault-plugin-auth-google/setup-vault-plugin-auth-google.sh /usr/local/bin
+COPY --from=build /go/src/github.com/jetstack/vault-plugin-auth-google/vault-plugin-auth-google /usr/local/bin
+COPY --from=build /go/src/github.com/jetstack/vault-plugin-auth-google/setup-vault-plugin-auth-google.sh /usr/local/bin
