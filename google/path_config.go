@@ -290,7 +290,7 @@ func (c *config) ttlForType(authType string) (ttl time.Duration, maxTTL time.Dur
 	return ttl, maxTTL
 }
 
-func (c *config) authorised(user *goauth.Userinfo, groups []*admin.Group) bool {
+func (c *config) authorised(user *goauth.Userinfoplus, groups []*admin.Group) bool {
 
 	// base case, no restrictions configured
 	if (len(c.AllowedDomains) + len(c.AllowedGroups) + len(c.AllowedUsers)) == 0 {

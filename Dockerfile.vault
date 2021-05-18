@@ -1,4 +1,4 @@
-FROM golang:1.13.12 AS build
+FROM golang:1.15.11 AS build
 
 
 WORKDIR /go/src/github.com/hashicorp/vault
@@ -14,7 +14,7 @@ RUN \
   xz-utils && \
   npm install yarn@1.10.1 -g
 
-ENV VAULT_TAG v1.4.3
+ENV VAULT_TAG v1.7.1
 
 RUN git clone https://github.com/hashicorp/vault.git . && \
     git checkout "${VAULT_TAG}" && \
@@ -31,7 +31,7 @@ RUN make bin XC_OSARCH=linux/amd64
 
 COPY patches /tmp/patches
 
-RUN git config --global user.email "simon@swine.de" && git config --global user.name "Christian Simon"
+RUN git config --global user.email "team-infrastructure@jetstack.io" && git config --global user.name "Jetstack"
 
 
 # patch UI
@@ -54,7 +54,7 @@ RUN \
   sed -i "s/VersionPrerelease =.*/VersionPrerelease = \"jetstack1\"/g" sdk/version/version_base.go && \
   make bin XC_OSARCH=linux/amd64
 
-FROM alpine:3.11
+FROM alpine:3.13
 
 # Create a vault user and group first so the IDs get set the same way,
 # even as the rest of this may change over time.
